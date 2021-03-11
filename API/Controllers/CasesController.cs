@@ -27,7 +27,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Case>>> GetCases()
         {
-            return await _context.Cases.ToListAsync();
+            return await _context.Cases.Include(c=>c.Client).ToListAsync();
         }
 
         

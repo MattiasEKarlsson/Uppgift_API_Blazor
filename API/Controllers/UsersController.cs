@@ -65,7 +65,7 @@ namespace API.Controllers
                     if (_user.ValidatePassword(user.Password))
                     {
                         var tokenHandler = new JwtSecurityTokenHandler();
-                        var expiresDate = DateTime.Now.AddMinutes(1);
+                        var expiresDate = DateTime.Now.AddMinutes(60);
 
                         var tokenDescriptor = new SecurityTokenDescriptor
                         {

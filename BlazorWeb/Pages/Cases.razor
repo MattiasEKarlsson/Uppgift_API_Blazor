@@ -1,0 +1,52 @@
+﻿@page "/cases"
+@inject HttpClient Http
+
+<h1>Cases</h1>
+
+
+
+@if (cases == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        
+        <tbody>
+            @foreach (var x in cases)
+            {
+            <tr>
+                <td>@x.User</td>
+                <td>@x.Created</td>
+                <td>@x.Id</td>
+                <td>@x.Created</td>
+                <td>@x.StatusCode</td>
+                <td>@x.Client.FullName</td>
+
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private Case[] cases;
+    private HttpResponseMessage result;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        result = await Http.PostAsJsonAsync<SignIn>("https://localhost:44350/api/users/signin",
+            new SignIn {Email = "Matte@a.se", Password="Matte" });
+
+        var data = JsonConvert.DeserializeObject<dynamic>(await result.Content.ReadAsStringAsync());
+
+       
+
+        Http.DefaultRequestHeaders.Add("Authorization", $"Bearer {data.accessToken}");
+        cases = await Http.GetFromJsonAsync<Case[]>("https://localhost:44350/api/cases");
+    }
+
+
+}

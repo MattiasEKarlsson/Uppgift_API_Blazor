@@ -32,6 +32,9 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<SqlDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("SqlConnection")));
+            services.AddMvc(o => o.EnableEndpointRouting = false)
+                .SetCompatibilityVersion(CompatibilityVersion.Latest)
+                .AddNewtonsoftJson(o => o.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddAuthentication(a =>
             {
