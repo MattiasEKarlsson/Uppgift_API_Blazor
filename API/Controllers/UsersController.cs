@@ -30,7 +30,7 @@ namespace API.Controllers
 
         
         [HttpPost("signup")]
-        public async Task<ActionResult> SignUp([FromBody]SignUp model)
+        public async Task<IActionResult> SignUp([FromBody]SignUp model)
         {
             try
             {
@@ -45,11 +45,11 @@ namespace API.Controllers
                 _context.Users.Add(user);
                 await _context.SaveChangesAsync();
 
-                return Ok();
+                return new OkResult();
             }
             catch 
             {
-                return BadRequest();
+                return new BadRequestResult();
             }
         }
 
@@ -65,10 +65,16 @@ namespace API.Controllers
                     if (_user.ValidatePassword(user.Password))
                     {
                         var tokenHandler = new JwtSecurityTokenHandler();
+                        var expiresDate = DateTime.Now.AddMinutes(1);
+
                         var tokenDescriptor = new SecurityTokenDescriptor
                         {
-                            Subject = new ClaimsIdentity(new Claim[] { new Claim("UserId", _user.Id.ToString()) }),
-                            Expires = DateTime.Now.AddHours(1),
+                            Subject = new ClaimsIdentity(new Claim[]
+                            { 
+                                new Claim("UserId", _user.Id.ToString()),
+                                new Claim("Expires", expiresDate.ToString())
+                            }),
+                            Expires = expiresDate,
                             SigningCredentials = new SigningCredentials
                             (new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetSection("SecretKey").Value)), SecurityAlgorithms.HmacSha512Signature)
                         };
