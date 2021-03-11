@@ -23,7 +23,7 @@ namespace API.Models
 
         public virtual ICollection<Case> Cases { get; set; }
 
-        public void CreatePasswordWithHash(string password)
+        public void CreatePassword(string password)
         {
             using (var hmac = new HMACSHA512())
             {
@@ -32,14 +32,14 @@ namespace API.Models
             }
         }
 
-        public bool ValidatePasswordHash(string password)
+        public bool ValidatePassword(string password)
         {
             using (var hmac = new HMACSHA512(UserSalt))
             {
-                var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
-                for (int i = 0; i < computedHash.Length; i++)
+                var _uhach = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+                for (int i = 0; i < _uhach.Length; i++)
                 {
-                    if (computedHash[i] != UserHash[i])
+                    if (_uhach[i] != UserHash[i])
                         return false;
                 }
             }
