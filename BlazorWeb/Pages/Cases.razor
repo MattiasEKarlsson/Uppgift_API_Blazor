@@ -1,33 +1,48 @@
 ﻿@page "/cases"
 @inject HttpClient Http
 
-<h1>Cases</h1>
+
 
 
 
 @if (cases == null)
 {
-    <p><em>Loading...</em></p>
+   <div class="spinner"></div>
 }
 else
 {
-    <table class="table">
-        
+<div class="container">
+    <h1>Cases</h1>
+    <table class="table table-bordered table-striped">
         <tbody>
+
+            <tr>
+                <th>Id</th>
+                <th>Clients Name</th>
+                <th>Created</th>
+                <th>Status</th>
+                <th>Description</th>
+                <th></th>
+            </tr>
+
             @foreach (var x in cases)
             {
-            <tr>
-                <td>@x.User</td>
-                <td>@x.Created</td>
-                <td>@x.Id</td>
-                <td>@x.Created</td>
-                <td>@x.StatusCode</td>
-                <td>@x.Client.FullName</td>
+                <tr>
+                    <td>@x.Id</td>
+                    <td>@x.Client.FullName</td>
+                    <td>@x.Created</td>
+                    <td>@x.StatusCode</td>
+                    <td>@x.Descrip</td>
+                    <buttom class="btn btn-primary">Edit</buttom>
+                </tr>
 
-            </tr>
+
+
             }
         </tbody>
     </table>
+</div>
+    
 }
 
 @code {
@@ -37,14 +52,14 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        result = await Http.PostAsJsonAsync<SignIn>("https://localhost:44350/api/users/signin",
-            new SignIn {Email = "Matte@a.se", Password="Matte" });
+        //result = await Http.PostAsJsonAsync<SignIn>("https://localhost:44350/api/users/signin",
+        //    new SignIn {Email = "Matte@a.se", Password="Matte" });
 
-        var data = JsonConvert.DeserializeObject<dynamic>(await result.Content.ReadAsStringAsync());
+        //var data = JsonConvert.DeserializeObject<dynamic>(await result.Content.ReadAsStringAsync());
 
-       
 
-        Http.DefaultRequestHeaders.Add("Authorization", $"Bearer {data.accessToken}");
+
+        //Http.DefaultRequestHeaders.Add("Authorization", $"Bearer {data.accessToken}");
         cases = await Http.GetFromJsonAsync<Case[]>("https://localhost:44350/api/cases");
     }
 

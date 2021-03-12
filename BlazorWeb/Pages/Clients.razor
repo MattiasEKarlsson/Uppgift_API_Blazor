@@ -1,0 +1,49 @@
+﻿@page "/client"
+@inject HttpClient Http
+
+
+<div class="container w-75">
+    <h3>Clients</h3>
+    <p>
+        <NavLink href="/addclient" class="btn btn-primary oi oi-plus w-25  "></NavLink><br />
+    </p>
+
+    @if (clients == null)
+    {
+        <div class="spinner"></div>
+    }
+    else
+    {
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>PhoneNumber</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var c in clients)
+                {
+                    <tr>
+                        <td>@c.Id</td>
+                        <td>@c.FullName</td>
+                        <td>@c.Phone</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+
+@code {
+    private Client[] clients;
+
+    protected override async Task OnInitializedAsync()
+    {
+        clients = await Http.GetFromJsonAsync<Client[]>("https://localhost:44350/api/clients");
+    }
+
+    
+}
