@@ -2,8 +2,8 @@
 @inject HttpClient Http
 
 
-<div class="container w-75">
-    <h3>Clients</h3>
+<div class=" container m-2 p-2  bg-dark justify-content-center">
+    <h1 class="text-white-50">Clients</h1>
     <p>
         <NavLink href="/addclient" class="btn btn-primary oi oi-plus w-25  "></NavLink><br />
     </p>
@@ -14,21 +14,21 @@
     }
     else
     {
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered table-dark table-striped">
             <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>PhoneNumber</th>
+                    <th width="4%">Id</th>
+                    <th width="25%">Name</th>
+                    <th width="25%">PhoneNumber</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var c in clients)
                 {
                     <tr>
-                        <td>@c.Id</td>
-                        <td>@c.FullName</td>
-                        <td>@c.Phone</td>
+                        <td width="4%">@c.Id</td>
+                        <td width="25%">@c.FullName</td>
+                        <td width="25%">@c.Phone</td>
                     </tr>
                 }
             </tbody>

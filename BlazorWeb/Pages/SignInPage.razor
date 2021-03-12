@@ -7,10 +7,10 @@
     <hr />
     <EditForm Model="@signIn" OnSubmit="@SignInAsync">
         <div class="form-group w-25">
-            <input type="text" class="form-control" placeholder="FirstName" @bind="signIn.Email" required />
+            <input type="text" class="form-control" placeholder="Email" @bind="signIn.Email" required />
         </div>
         <div class="form-group w-25">
-            <input type="text" class="form-control" placeholder="LastName" @bind="signIn.Password" required />
+            <input type="password" class="form-control" placeholder="Password" @bind="signIn.Password" required />
         </div>
 
         <hr />
@@ -31,8 +31,6 @@
             new SignIn { Email = signIn.Email, Password = signIn.Password });
 
         var data = JsonConvert.DeserializeObject<dynamic>(await result.Content.ReadAsStringAsync());
-
-
 
         Http.DefaultRequestHeaders.Add("Authorization", $"Bearer {data.accessToken}");
         NavManager.NavigateTo("/");

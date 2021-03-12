@@ -11,30 +11,31 @@
 }
 else
 {
-<div class="container">
-    <h1>Cases</h1>
-    <table class="table table-bordered table-striped">
+<div class="container m-2 p-2 bg-dark justify-content-center">
+    <h1 class="text-white-50">Cases</h1>
+    <table class="table table-bordered table-dark table-striped">
         <tbody>
 
             <tr>
-                <th>Id</th>
-                <th>Clients Name</th>
-                <th>Created</th>
-                <th>Status</th>
-                <th>Description</th>
-                <th></th>
+                <th width="4%">Id</th>
+                <th width="15%">Clients Name</th>
+                <th width="17%">Created</th>
+                <th width="10%">Status</th>
+                <th width="41%">Description</th>
+                <th width="10%"></th>
             </tr>
 
             @foreach (var x in cases)
             {
-                <tr>
-                    <td>@x.Id</td>
-                    <td>@x.Client.FullName</td>
-                    <td>@x.Created</td>
-                    <td>@x.StatusCode</td>
-                    <td>@x.Descrip</td>
-                    <buttom class="btn btn-primary">Edit</buttom>
-                </tr>
+        <tr>
+            <td width="4%">@x.Id</td>
+            <td width="15%">@x.Client.FullName</td>
+            <td width="17%">@x.Created</td>
+            <td width="10%">@x.StatusCode</td>
+            <td width="41%">@x.Descrip</td>
+            <td width="10%"><buttom class="btn btn-primary">Edit</buttom></td>
+            
+        </tr>
 
 
 
@@ -52,14 +53,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        //result = await Http.PostAsJsonAsync<SignIn>("https://localhost:44350/api/users/signin",
-        //    new SignIn {Email = "Matte@a.se", Password="Matte" });
-
-        //var data = JsonConvert.DeserializeObject<dynamic>(await result.Content.ReadAsStringAsync());
-
-
-
-        //Http.DefaultRequestHeaders.Add("Authorization", $"Bearer {data.accessToken}");
+       
         cases = await Http.GetFromJsonAsync<Case[]>("https://localhost:44350/api/cases");
     }
 

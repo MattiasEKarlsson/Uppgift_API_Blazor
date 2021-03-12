@@ -1,0 +1,50 @@
+﻿@page "/addcase"
+@inject HttpClient Http
+@inject NavigationManager NavManager
+
+
+
+<div class="container">
+    <h3>Add Case</h3>
+    <hr />
+    <EditForm Model="@casee" OnSubmit="@CreateCaseAsync">
+        <div class="form-group w-25">
+            <input type="text" class="form-control" placeholder="User" @bind="casee.UserId" required />
+        </div>
+        <div class="form-group w-25">
+            <input type="text" class="form-control" placeholder="Client" @bind="casee.ClientId" required />
+        </div>
+        <div class="form-group w-25">
+            <input type="text" class="form-control" placeholder="Description" @bind="casee.Descrip" required />
+        </div>
+        <hr />
+        <div class="form-group w-25">
+            <button type="submit" class="btn btn-primary oi oi-plus w-50 h-50"></button>
+        </div>
+    </EditForm>
+</div>
+
+
+
+@code {
+    private Case casee;
+
+
+
+    private async Task CreateCaseAsync()
+    {
+        casee.Created = DateTime.Now;
+        casee.LatestUpdate = DateTime.Now;
+        casee.StatusCode = "Ej Påbörjad";
+        await Http.PostAsJsonAsync<Case>("https://localhost:44350/api/cases", casee);
+        NavManager.NavigateTo("/cases");
+
+    }
+
+    protected override void OnInitialized()
+    {
+        casee = new Case();
+    }
+}
+
+
