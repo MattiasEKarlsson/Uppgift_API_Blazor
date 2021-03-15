@@ -1,4 +1,4 @@
-﻿@page "/addclients"
+﻿@page "/addclient"
 @inject HttpClient Http
 @inject NavigationManager NavManager
 
@@ -17,7 +17,6 @@
         <div class="form-group w-25">
             <input type="number" class="form-control" placeholder="PhoneNumber" @bind="client.Phone" required />
         </div>
-        <hr />
         <div class="form-group w-25">
             <button type="submit" class="btn btn-primary oi oi-plus w-50 h-50"></button>
         </div>

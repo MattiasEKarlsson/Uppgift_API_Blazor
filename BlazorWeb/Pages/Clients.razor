@@ -2,19 +2,20 @@
 @inject HttpClient Http
 
 
-<div class=" container m-2 p-2  bg-dark justify-content-center">
-    <h1 class="text-white-50">Clients</h1>
-    <p>
-        <NavLink href="/addclient" class="btn btn-primary oi oi-plus w-25  "></NavLink><br />
-    </p>
-
+<div class=" m-5 row">
+    <div class="col-8">
+        <h1 class="text-secondary">Clients</h1>
+    </div>
+    <div class="col-1">
+        <NavLink href="/addclient" class="btn btn-primary form-control">New Client</NavLink>
+    </div>
     @if (clients == null)
     {
         <div class="spinner"></div>
     }
     else
     {
-        <table class="table table-bordered table-dark table-striped">
+        <table class="table table-bordered  table-striped">
             <thead>
                 <tr>
                     <th width="4%">Id</th>
@@ -33,6 +34,8 @@
                 }
             </tbody>
         </table>
+
+       
     }
 </div>
 

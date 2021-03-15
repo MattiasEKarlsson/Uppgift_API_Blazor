@@ -13,7 +13,7 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class CasesController : ControllerBase
     {
         private readonly SqlDbContext _context;
@@ -78,6 +78,8 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<Case>> PostCase(Case @case)
         {
+            
+
             _context.Cases.Add(@case);
             await _context.SaveChangesAsync();
 

@@ -28,7 +28,13 @@ namespace API.Controllers
             Configuration = configuration;
         }
 
-        
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        {
+            return await _context.Users.ToListAsync();
+        }
+
+
         [HttpPost("signup")]
         public async Task<IActionResult> SignUp([FromBody]SignUp model)
         {
