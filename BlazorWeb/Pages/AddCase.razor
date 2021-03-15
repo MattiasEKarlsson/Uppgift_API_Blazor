@@ -33,12 +33,15 @@
 
     private async Task CreateCaseAsync()
     {
-        casee.Created = DateTime.Now;
-        casee.LatestUpdate = DateTime.Now;
-        casee.StatusCode = "Ej Påbörjad";
-        await Http.PostAsJsonAsync<Case>("https://localhost:44350/api/cases", casee);
-        NavManager.NavigateTo("/cases");
-
+        try
+        {
+            casee.Created = DateTime.Now;
+            casee.LatestUpdate = DateTime.Now;
+            casee.StatusCode = "Ej Påbörjad";
+            await Http.PostAsJsonAsync<Case>("https://localhost:44350/api/cases", casee);
+            NavManager.NavigateTo("/cases");
+        }
+        catch { }
     }
 
     protected override void OnInitialized()

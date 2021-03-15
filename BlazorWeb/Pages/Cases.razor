@@ -37,8 +37,6 @@ else
             
         </tr>
 
-
-
             }
         </tbody>
     </table>
@@ -53,8 +51,13 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-       
-        cases = await Http.GetFromJsonAsync<Case[]>("https://localhost:44350/api/cases");
+        try
+        {
+            cases = await Http.GetFromJsonAsync<Case[]>("https://localhost:44350/api/cases");
+        }
+        catch { }
+
+
     }
 
 

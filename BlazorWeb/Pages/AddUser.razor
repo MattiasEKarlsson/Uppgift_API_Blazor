@@ -1,0 +1,55 @@
+﻿@page "/signup"
+@inject HttpClient Http
+@inject NavigationManager NavManager
+
+
+
+<div class="container">
+    <h3>Register User</h3>
+    <hr />
+    <div class="cen">
+        <EditForm Model="@user" OnSubmit="@CreateUserAsync">
+            <div class="form-group w-25">
+                <input type="text" class="form-control" placeholder="FirstName" @bind="user.FirstName" required />
+            </div>
+            <div class="form-group w-25">
+                <input type="text" class="form-control" placeholder="LastName" @bind="user.LastName" required />
+            </div>
+            <div class="form-group w-25">
+                <input type="text" class="form-control" placeholder="Email" @bind="user.Email" required />
+            </div>
+            <div class="form-group w-25">
+                <input type="password" class="form-control" placeholder="Password" @bind="user.Password" required />
+            </div>
+            <hr />
+            <div class="form-group w-25">
+                <button type="submit" class="btn btn-primary oi oi-plus w-50 h-50"></button>
+            </div>
+        </EditForm>
+    </div>
+    
+</div>
+
+
+
+@code {
+    private SignUp user;
+
+    private async Task CreateUserAsync()
+    {
+        try
+        {
+            await Http.PostAsJsonAsync<SignUp>("https://localhost:44350/api/users/signup", user);
+            NavManager.NavigateTo("/");
+        }
+        catch { }
+
+
+
+    }
+
+    protected override void OnInitialized()
+    {
+        user = new SignUp();
+    }
+}

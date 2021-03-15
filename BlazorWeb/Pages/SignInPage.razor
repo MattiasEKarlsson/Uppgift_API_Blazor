@@ -1,4 +1,4 @@
-﻿@page "/signin"
+﻿@page "/"
 @inject HttpClient Http
 @inject NavigationManager NavManager
 
@@ -26,14 +26,18 @@
 
     private async Task SignInAsync()
     {
-
-        result = await Http.PostAsJsonAsync<SignIn>("https://localhost:44350/api/users/signin",
+        try
+        {
+            result = await Http.PostAsJsonAsync<SignIn>("https://localhost:44350/api/users/signin",
             new SignIn { Email = signIn.Email, Password = signIn.Password });
 
-        var data = JsonConvert.DeserializeObject<dynamic>(await result.Content.ReadAsStringAsync());
+            var data = JsonConvert.DeserializeObject<dynamic>(await result.Content.ReadAsStringAsync());
 
-        Http.DefaultRequestHeaders.Add("Authorization", $"Bearer {data.accessToken}");
-        NavManager.NavigateTo("/");
+            Http.DefaultRequestHeaders.Add("Authorization", $"Bearer {data.accessToken}");
+            NavManager.NavigateTo("/index");
+        }
+        catch { }
+
 
     }
 

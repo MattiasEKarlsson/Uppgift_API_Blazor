@@ -42,8 +42,13 @@
 
     protected override async Task OnInitializedAsync()
     {
-        clients = await Http.GetFromJsonAsync<Client[]>("https://localhost:44350/api/clients");
+        try
+        {
+            clients = await Http.GetFromJsonAsync<Client[]>("https://localhost:44350/api/clients");
+        }
+        catch { }
+
     }
 
-    
+
 }

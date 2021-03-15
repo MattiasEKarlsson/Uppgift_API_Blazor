@@ -1,4 +1,4 @@
-﻿@page "/addclient"
+﻿@page "/addclients"
 @inject HttpClient Http
 @inject NavigationManager NavManager
 
@@ -31,10 +31,13 @@
 
     private async Task CreateClientAsync()
     {
+        try
+        {
+            await Http.PostAsJsonAsync<Client>("https://localhost:44350/api/clients", client);
+            NavManager.NavigateTo("/client");
+        }
+        catch { }
 
-        await Http.PostAsJsonAsync<Client>("https://localhost:44350/api/clients", client);
-        NavManager.NavigateTo("/client");
-        
     }
 
     protected override void OnInitialized()

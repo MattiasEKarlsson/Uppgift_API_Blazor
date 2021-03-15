@@ -13,7 +13,7 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class CasesController : ControllerBase
     {
         private readonly SqlDbContext _context;
@@ -22,8 +22,8 @@ namespace API.Controllers
         {
             _context = context;
         }
-
         
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Case>>> GetCases()
         {
