@@ -25,10 +25,9 @@
             <input type="text" class="form-control" @bind="cases.LatestUpdate" disabled />
         </div>
         <select @bind="cases.StatusCode" class="form-group dropdown btn btn-secondary w-25 " aria-label="Change Status" required>
-
-            <option value="Ej påbörjad" selected>Ej påbörjad</option>
-            <option value="Pågår" selected>Pågår</option>
-            <option value="Avslutad" selected>Avslutad</option>
+            <option value="Ej påbörjad">Ej påbörjad</option>
+            <option value="Pågår" >Pågår</option>
+            <option value="Avslutad" >Avslutad</option>
         </select>
 
 
@@ -58,7 +57,6 @@
         {
             cases = new Case();
             var id = int.Parse(Id);
-            Console.WriteLine(id);
             cases = await Http.GetFromJsonAsync<Case>($"https://localhost:44350/api/cases/{id}");
         }
         catch { }
@@ -67,12 +65,12 @@
 
     private async Task UpdateCaseAsync()
     {
+        
         try
         {
-            //cases.Id = int.Parse(Id);
+            
             cases.LatestUpdate = DateTime.Now;
-
-            await Http.PutAsJsonAsync<Case>("https://localhost:44350/api/cases/{id}", cases);
+            await Http.PutAsJsonAsync<Case>($"https://localhost:44350/api/cases/{Id}", cases);
             NavManager.NavigateTo("/cases");
         }
         catch { }
