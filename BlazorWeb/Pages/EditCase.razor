@@ -45,9 +45,7 @@
 @code {
     [Parameter]
     public string Id { get; set; }
-
-
-
+    private HttpResponseMessage result;
     private Case cases { get; set; }
 
 
@@ -66,12 +64,21 @@
 
     private async Task UpdateCaseAsync()
     {
-        
+
         try
         {
             cases.LatestUpdate = DateTime.Now;
-            await Http.PutAsJsonAsync<Case>($"https://localhost:44350/api/cases/{Id}", cases);
-            NavManager.NavigateTo("/cases");
+            result = await Http.PutAsJsonAsync<Case>($"https://localhost:44350/api/cases/{Id}", cases);
+
+            if (result.IsSuccessStatusCode)
+            {
+                NavManager.NavigateTo("/cases");
+            }
+            else
+            {
+                NavManager.NavigateTo("/errorpage");
+            }
+
         }
         catch { }
     }

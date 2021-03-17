@@ -40,7 +40,7 @@
 @code {
     private Case casee;
     private IEnumerable<Client> clients;
-
+    private HttpResponseMessage result;
 
 
     private async Task CreateCaseAsync()
@@ -51,8 +51,16 @@
             casee.Created = DateTime.Now;
             casee.LatestUpdate = DateTime.Now;
             casee.StatusCode = "Ej Påbörjad";
-            await Http.PostAsJsonAsync<Case>("https://localhost:44350/api/cases", casee);
-            NavManager.NavigateTo("/cases");
+            result = await Http.PostAsJsonAsync<Case>("https://localhost:44350/api/cases", casee);
+
+            if (result.IsSuccessStatusCode)
+            {
+                NavManager.NavigateTo("/cases");
+            }
+            else
+            {
+                NavManager.NavigateTo("/errorpage");
+            }
         }
         catch { }
     }

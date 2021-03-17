@@ -39,20 +39,27 @@
 
 @code {
     private SignUp user;
+    private HttpResponseMessage result;
 
     private async Task CreateUserAsync()
     {
         try
         {
-            await Http.PostAsJsonAsync<SignUp>("https://localhost:44350/api/users/signup", user);
-            NavManager.NavigateTo("/");
+            result = await Http.PostAsJsonAsync<SignUp>("https://localhost:44350/api/users/signup", user);
+
+            if (result.IsSuccessStatusCode)
+            {
+                NavManager.NavigateTo("/");
+            }
+            else
+            {
+                NavManager.NavigateTo("/errorpage");
+            }
         }
         catch
         {
-            
+
         }
-
-
 
     }
 

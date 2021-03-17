@@ -39,16 +39,18 @@
             if (result.IsSuccessStatusCode)
             {
                 token = true;
+                await sessionStorage.SetItemAsync<string>("auth", token.ToString());
+
+                var data = JsonConvert.DeserializeObject<dynamic>(await result.Content.ReadAsStringAsync());
+
+                Http.DefaultRequestHeaders.Add("Authorization", $"Bearer {data.accessToken}");
+                NavManager.NavigateTo("/index");
             }
-            
-            Console.WriteLine(token);
+            else
+            {
+                NavManager.NavigateTo("/errorpage");
+            }
 
-            await sessionStorage.SetItemAsync<string>("auth", token.ToString());
-
-            var data = JsonConvert.DeserializeObject<dynamic>(await result.Content.ReadAsStringAsync());
-
-            Http.DefaultRequestHeaders.Add("Authorization", $"Bearer {data.accessToken}");
-            NavManager.NavigateTo("/index");
         }
         catch { }
 
