@@ -27,6 +27,7 @@
 @code {
     private SignIn signIn;
     private HttpResponseMessage result;
+    private bool token;
 
     private async Task SignInAsync()
     {
@@ -35,10 +36,18 @@
             result = await Http.PostAsJsonAsync<SignIn>("https://localhost:44350/api/users/signin",
             new SignIn { Email = signIn.Email, Password = signIn.Password });
 
+            if (result.IsSuccessStatusCode)
+            {
+                token = true;
+            }
+            
+            Console.WriteLine(token);
+
+            await sessionStorage.SetItemAsync<string>("auth", token.ToString());
+
             var data = JsonConvert.DeserializeObject<dynamic>(await result.Content.ReadAsStringAsync());
 
             Http.DefaultRequestHeaders.Add("Authorization", $"Bearer {data.accessToken}");
-            Console.WriteLine(data);
             NavManager.NavigateTo("/index");
         }
         catch { }

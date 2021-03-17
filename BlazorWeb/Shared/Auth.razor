@@ -7,9 +7,12 @@
     {
         try
         {
-            authenticated = bool.Parse(await sessionStorage.GetItemAsync<string>("accessToken"));
+            authenticated = bool.Parse(await sessionStorage.GetItemAsync<string>("auth"));
         }
-        catch { }
+        catch
+        {
+            authenticated = false;
+        }
 
         if (!authenticated)
         {
