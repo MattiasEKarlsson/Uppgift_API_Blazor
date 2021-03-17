@@ -68,7 +68,6 @@
         
         try
         {
-            
             cases.LatestUpdate = DateTime.Now;
             await Http.PutAsJsonAsync<Case>($"https://localhost:44350/api/cases/{Id}", cases);
             NavManager.NavigateTo("/cases");

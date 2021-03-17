@@ -16,7 +16,7 @@
             <input type="text" class="form-control" placeholder="User" @bind="casee.UserId" required />
         </div>
 
-        <select @bind="casee.ClientId" class="form-group dropdown btn btn-secondary w-25 " aria-label="Select Client" required>
+        <select @bind="casee.ClientId" class="form-group form-control dropdown btn btn-secondary w-25 " aria-label="Select Client" required>
             <option selected>Select Client</option>
             @foreach (var client in clients)
             {
@@ -39,14 +39,14 @@
 @code {
     private Case casee;
     private IEnumerable<Client> clients;
-    
+
 
 
     private async Task CreateCaseAsync()
     {
         try
         {
-            
+
             casee.Created = DateTime.Now;
             casee.LatestUpdate = DateTime.Now;
             casee.StatusCode = "Ej Påbörjad";
@@ -59,9 +59,13 @@
     protected override async Task OnInitializedAsync()
     {
         casee = new Case();
-
         clients = new List<Client>();
-        clients = await Http.GetFromJsonAsync<IEnumerable<Client>>("https://localhost:44350/api/clients");
+
+        try
+        {
+            clients = await Http.GetFromJsonAsync<IEnumerable<Client>>("https://localhost:44350/api/clients");
+        }
+        catch { }
 
     }
 

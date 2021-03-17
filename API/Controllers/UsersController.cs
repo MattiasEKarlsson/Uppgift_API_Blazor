@@ -48,10 +48,13 @@ namespace API.Controllers
                 };
                 user.CreatePassword(model.Password);
 
-                _context.Users.Add(user);
-                await _context.SaveChangesAsync();
-
-                return new OkResult();
+                if (!_context.Users.Any(u => u.Email == user.Email))
+                {
+                    _context.Users.Add(user);
+                    await _context.SaveChangesAsync();
+                    return new OkResult();
+                }
+                return new BadRequestResult();
             }
             catch 
             {

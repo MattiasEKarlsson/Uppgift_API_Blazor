@@ -1,0 +1,20 @@
+﻿@inject NavigationManager NavManager
+
+@code {
+    private bool authenticated = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            authenticated = bool.Parse(await sessionStorage.GetItemAsync<string>("accessToken"));
+        }
+        catch { }
+
+        if (!authenticated)
+        {
+            NavManager.NavigateTo("/");
+        }
+    }
+
+}
