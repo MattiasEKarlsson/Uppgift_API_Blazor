@@ -1,43 +1,45 @@
 ﻿@page "/cases/{id}"
 @inject HttpClient Http
 @inject NavigationManager NavManager
-    <Auth />
+<Auth />
+
+<h2>Create Case</h2>
+<div class="row">
+    <div class="col-md-4">
+        <section>
+            <EditForm Model="@cases" OnSubmit="@UpdateCaseAsync">
+                <div class="form-group mt-2">
+                    <span>Case ID</span>
+                    <input type="text" class="form-control" @bind="cases.Id" disabled />
+                </div>
+                <div class="form-group mt-2">
+                    <span>Description</span>
+                    <textarea type="text" class="form-control" @bind="cases.Descrip" required />
+                </div>
+                <div class="form-group mt-2">
+                    <span>Created</span>
+                    <input type="text" class="form-control" @bind="cases.Created" disabled />
+                </div>
+                <div class="form-group mt-2">
+                    <span>Latest Update</span>
+                    <input type="text" class="form-control" @bind="cases.LatestUpdate" disabled />
+                </div>
+                <select @bind="cases.StatusCode" class="form-group dropdown btn btn-info mt-2 " aria-label="Change Status" required>
+                    <option value="Ej påbörjad">Ej påbörjad</option>
+                    <option value="Pågår">Pågår</option>
+                    <option value="Avslutad">Avslutad</option>
+                </select>
 
 
-<div class="container">
-    <h1>Update</h1>
-    <hr />
-    <EditForm Model="@cases" OnSubmit="@UpdateCaseAsync">
-
-        <div class="form-group w-25">
-            <span>Case ID</span>
-            <input type="text" class="form-control" @bind="cases.Id" disabled />
-        </div>
-        <div class="form-group w-100">
-            <span>Description</span>
-            <textarea type="text" class="form-control" @bind="cases.Descrip" required />
-        </div>
-        <div class="form-group w-100">
-            <span>Created</span>
-            <input type="text" class="form-control" @bind="cases.Created" disabled />
-        </div>
-        <div class="form-group w-100">
-            <span>Latest Update</span>
-            <input type="text" class="form-control" @bind="cases.LatestUpdate" disabled />
-        </div>
-        <select @bind="cases.StatusCode" class="form-group dropdown btn btn-secondary w-25 " aria-label="Change Status" required>
-            <option value="Ej påbörjad">Ej påbörjad</option>
-            <option value="Pågår" >Pågår</option>
-            <option value="Avslutad" >Avslutad</option>
-        </select>
-
-
-        <hr />
-        <div class="form-group w-25">
-            <button type="submit" class="btn btn-primary oi oi-plus w-50 h-50"></button>
-        </div>
-    </EditForm>
+                <hr />
+                <div class="form-group mt-5">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </EditForm>
+        </section>
+    </div>
 </div>
+
 
 
 

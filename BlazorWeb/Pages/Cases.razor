@@ -1,21 +1,19 @@
 ﻿@page "/cases"
 @inject HttpClient Http
-    <Auth />
-
-
-
+<Auth />
 
 
 @if (cases == null)
 {
-   <div class="spinner"></div>
+    <div class="spinner"></div>
 }
 else
 {
-<div class="row m-5">
-    <h1 class="text-secondary col-8">Cases</h1>
-    <div class="col-1 justify-content-center">
-        <NavLink href="/addcase" class="btn btn-primary form-control">New Case</NavLink>
+
+    <h2>Cases</h2>
+    <hr />
+    <div m-2>
+        <NavLink href="/addcase" class="btn btn-primary form-control w-25 mb-2">New Case</NavLink>
     </div>
     <table class="table table-bordered table-striped">
         <tbody>
@@ -32,27 +30,27 @@ else
 
             @foreach (var x in cases)
             {
-        <tr>
-            <td width="2%">@x.Id</td>
-            <td width="8%">@x.Client.FullName</td>
-            <td width="10%">@x.Created</td>
-            <td width="10%">@x.LatestUpdate</td>
-            <td width="7%">@x.StatusCode</td>
-            <td width="48%">@x.Descrip</td>
-            <td width="5%"><a class="btn btn-primary" href="cases/@x.Id">Edit</a></td>
+                <tr>
+                    <td width="2%">@x.Id</td>
+                    <td width="8%">@x.Client.FullName</td>
+                    <td width="10%">@x.Created</td>
+                    <td width="10%">@x.LatestUpdate</td>
+                    <td width="7%">@x.StatusCode</td>
+                    <td width="48%">@x.Descrip</td>
+                    <td width="5%"><a class="btn btn-primary" href="cases/@x.Id">Edit</a></td>
 
-        </tr>
+                </tr>
 
             }
         </tbody>
     </table>
-</div>
-    
+
+
 }
 
 @code {
     private Case[] cases;
-    
+
 
 
     protected override async Task OnInitializedAsync()

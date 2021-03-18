@@ -1,39 +1,39 @@
 ﻿@page "/signup"
 @inject HttpClient Http
 @inject NavigationManager NavManager
-    
 
-
-
-<div class="container">
-    <h1>Register User</h1>
-    <hr />
-    <div class="cen">
-        <EditForm Model="@user" OnSubmit="@CreateUserAsync">
-            <div class="form-group w-25">
-                <span>FirstName</span>
-                <input type="text" class="form-control" @bind="user.FirstName" required />
-            </div>
-            <div class="form-group w-25">
-                <span>LastName</span>
-                <input type="text" class="form-control" @bind="user.LastName" required />
-            </div>
-            <div class="form-group w-25">
-                <span>Email</span>
-                <input type="text" class="form-control" @bind="user.Email" required />
-            </div>
-            <div class="form-group w-25">
-                <span>Password</span>
-                <input type="password" class="form-control" @bind="user.Password" required />
-            </div>
-            <hr />
-            <div class="form-group w-25">
-                <button type="submit" class="btn btn-primary oi oi-plus w-50 h-50"></button>
-            </div>
-        </EditForm>
+<h2>Resister User</h2>
+<div class="row">
+    <div class="col-md-4">
+        <section>
+            <EditForm Model="@user" OnSubmit="@CreateUserAsync">
+                <hr />
+                <div class="form-group mt-2">
+                    <span>FirstName</span>
+                    <input type="text" class="form-control" @bind="user.FirstName" required />
+                </div>
+                <div class="form-group mt-2">
+                    <span>LastName</span>
+                    <input type="text" class="form-control" @bind="user.LastName" required />
+                </div>
+                <div class="form-group mt-2">
+                    <span>Email</span>
+                    <input type="text" class="form-control" @bind="user.Email" required />
+                </div>
+                <div class="form-group mt-2">
+                    <span>Password</span>
+                    <input type="password" class="form-control" @bind="user.Password" required />
+                </div>
+                <div class="form-group mt-5">
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </div>
+            </EditForm>
+        </section>
     </div>
-    
 </div>
+
+
+
 
 
 
