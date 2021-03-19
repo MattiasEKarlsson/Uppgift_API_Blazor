@@ -23,28 +23,6 @@ namespace BlazorWeb.Models
 
         public virtual ICollection<Case> Cases { get; set; }
 
-        public void CreatePassword(string password)
-        {
-            using (var hmac = new HMACSHA512())
-            {
-                UserSalt = hmac.Key;
-                UserHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
-            }
-        }
-
-        public bool ValidatePassword(string password)
-        {
-            using (var hmac = new HMACSHA512(UserSalt))
-            {
-                var _uhach = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
-                for (int i = 0; i < _uhach.Length; i++)
-                {
-                    if (_uhach[i] != UserHash[i])
-                        return false;
-                }
-            }
-
-            return true;
-        }
+       
     }
 }
